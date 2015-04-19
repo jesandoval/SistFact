@@ -1,0 +1,269 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sistema de Facturación</title>
+    <link href="~/Scripts/jqgrid/themes/redmond/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Scripts/jqgrid/themes/ui.jqgrid.css" rel="stylesheet" type="text/css"/>
+    
+
+    <script src="~/Scripts/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jqgrid/js/jquery.layout.js" type="text/javascript"></script>
+    <script src="~/Scripts/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="~/Scripts/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jqgrid/js/jquery.tablednd.js" type="text/javascript"></script>
+    <script src="~/Scripts/jqgrid/js/jquery.contextmenu.js" type="text/javascript"></script>
+
+    <script type='text/javascript' src='http://cdn.sencha.io/ext-4.2.0-gpl/ext-all.js'></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.sencha.com/ext/gpl/4.2.0/resources/css/ext-all.css">
+
+    
+
+
+</head>
+<body>
+    <div style=" height:60px">
+        
+
+        <fieldset style=" width:1200px; padding:5px 10px">
+            <legend>Filtros de Búsqueda</legend>
+        
+           <span>Número</span>
+           @Html.TextBox("inumero")
+
+           <span>Cliente</span>
+           @Html.TextBox("iidcliente")
+
+           <span>OIP</span>
+           @Html.TextBox("iidoip")                                    
+
+           <input id="buscar" type="button" value="Buscar" />
+        </fieldset>
+
+    </div>
+    <div style="float:left">
+           <table id="gridfacturas" class="scroll" cellpadding="0" cellspacing="0"></table>             
+           <div id="pagergridfacturas" class="scroll" style="text-align:center;"></div>         
+    </div>
+
+    <div style="float:left; margin-left: 10px">
+  
+    </div>
+   
+    <div id="tabs1">
+        <div id="datosgenerales" class="x-hide-display">
+         
+            <fieldset style=" width:450px; padding:8px 10px">
+                <legend>Datos de la Factura</legend>
+
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>Número</span></div>
+                    <div style="display:table-cell; width:180px"><input name="inumero" type="text" style="width:280px"/></div>
+                </div>
+            
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>Concepto</span></div>
+                    <div style="display:table-cell; width:180px"><input name="vconcepto" type="text" style="width:280px"/></div>
+               </div>
+            
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>Nro. SIAF</span></div>
+                    <div style="display:table-cell; width:180px"><input name="vnrosiaf" type="text" style="width:280px"/></div>
+               </div>            
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Fecha Emisión</span></div>
+                    <div style="display:table-cell; width:180px"><input name="dfechaemision" type="text" style="width:180px"/></div>
+               </div>
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Moneda</span></div>
+                    <div style="display:table-cell; width:180px"><input name="vmoneda" type="text" style="width:180px"/></div>
+               </div>
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Monto Neto</span></div>
+                    <div style="display:table-cell; width:180px"><input name="imontoneto" type="text" style="width:180px"/></div>
+               </div>
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Monto IGV</span></div>
+                    <div style="display:table-cell; width:180px"><input name="imontoneto" type="text" style="width:180px"/></div>
+               </div>
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Monto Total</span></div>
+                    <div style="display:table-cell; width:180px"><input name="imontoneto" type="text" style="width:180px"/></div>
+               </div>
+
+        </fieldset>
+        </div>
+        <div id="cliente" class="x-hide-display">
+            
+            <fieldset style=" width:450px; padding:8px 10px">
+                <legend>Datos del Cliente</legend>
+
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>Razon Social</span></div>
+                    <div style="display:table-cell; width:180px"><input name="Vrazonsocial" type="text" style="width:280px"/></div>
+                </div>
+            
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>RUC</span></div>
+                    <div style="display:table-cell; width:180px"><input name="Vruc" type="text" style="width:280px"/></div>
+               </div>
+            
+                <div style="display:table-row; height:30px">
+                    <div style="display:table-cell; width:70px"><span>Dirección</span></div>
+                    <div style="display:table-cell; width:180px"><input name="Vdireccion" type="text" style="width:280px"/></div>
+               </div>            
+
+               <div style="display:table-row; height:30px"> 
+                    <div style="display:table-cell; width:70px"><span>Telefono</span></div>
+                    <div style="display:table-cell; width:180px"><input name="Vtelefono" type="text" style="width:180px"/></div>
+               </div>               
+
+        </fieldset>
+        </div>
+        <div id="oips" class="x-hide-display">
+                <div style="float:left">
+                    <table id="gridoips" class="scroll" cellpadding="0" cellspacing="0"></table>             
+                    <div id="pagergridoips" class="scroll" style="text-align:center;"></div>         
+                </div>
+        </div>
+    </div>
+
+</body>
+
+        <script type="text/javascript">
+           
+            jQuery("#gridfacturas").jqGrid({
+                url: '/Factura/Listar',
+                datatype: "json",
+                mtype: 'GET',
+                colNames: ['Número', 'Concepto', 'Fecha Emisión', 'Cliente', 'Moneda', 'Monto Neto',
+                           'Monto IGV', 'Monto Total', 'Estado', 'Fecha Registro'],
+                colModel: [
+                  { name: 'Numero', index: 'Numero', width: 80, align: 'left' },
+                  { name: 'Concepto', index: 'Concepto', width: 150, align: 'left' },
+                  { name: 'FechaEmision', index: 'FechaEmision', width: 90, align: 'left' },
+                  { name: 'Cliente', index: 'Cliente', width: 200, align: 'left' },
+                  { name: 'Moneda', index: 'Moneda', width: 70, align: 'left' },
+                  { name: 'MontoNeto', index: 'MontoNeto', width: 90, align: 'right' },
+                  { name: 'MontoIGV', index: 'MontoIGV', width: 90, align: 'right' },
+                  { name: 'MontoTotal', index: 'MontoTotal', width: 90, align: 'right' },
+                  { name: 'Estado', index: 'Estado', width: 90, align: 'right' },
+                  { name: 'FechaRegistro', index: 'FechaRegistro', width: 90, align: 'left' }
+                ],
+
+                rowNum: 20,
+                rowList: [10, 20, 30],
+                height: '400',
+                width: '700',
+                pager: jQuery('#pagergridfacturas'),
+                //sortname: 'Numero',
+                viewrecords: true,
+                //sortorder: "desc",
+                caption: "Facturas",
+                shrinkToFit: false
+            });
+
+            $(function () {                
+                Buscar();
+            });
+
+            $("#buscar").click(function () {
+                Buscar();
+            });
+
+            function Buscar() {
+                var inumero = $('#inumero');
+                var iidcliente = $('#iidcliente');
+                var iidoip = $('#iidoip');
+
+                var url = '/Factura/Listar';
+
+                //url += url + (url? (inumero ? '?inumero=' + inumero : '');
+                //url += url + (iidcliente ? '?iidcliente=' + iidcliente : '');
+                //url += url + (iidoip ? '?iidoip=' + iidoip : ''); 
+
+                jQuery('#list').jqGrid('setGridParam',
+                        { url: url }
+                    ).trigger("reloadGrid");
+            }
+
+
+            jQuery("#gridoips").jqGrid({
+                url: '/OIP/Listar',
+                datatype: "json",
+                mtype: 'GET',
+                colNames: ['OIP', 'Revision', 'Mes Transmison', 'Año', 'Moneda', 'Monto Neto',
+                           'Producto', 'Motivo', 'Programa'],
+                colModel: [
+                  { name: 'OIP', index: 'OIP', width: 70, align: 'left' },
+                  { name: 'Revision', index: 'Revision', width: 60, align: 'left' },
+                  { name: 'Mes', index: 'Mes', width: 100, align: 'left' },
+                  { name: 'Ano', index: 'Ano', width: 80, align: 'left' },
+                  { name: 'Moneda', index: 'Moneda', width: 80, align: 'left' },
+                  { name: 'MontoNeto', index: 'MontoNeto', width: 100, align: 'right' },
+                  { name: 'Producto', index: 'Producto', width: 150, align: 'left' },
+                  { name: 'Motivo', index: 'Motivo', width: 150, align: 'left' },
+                  { name: 'Programa', index: 'Programa', width: 150, align: 'left' }
+                ],
+
+                rowNum: 20,
+                rowList: [10, 20, 30],
+                height: '300',
+                width: '550',
+                pager: jQuery('#pagergridoips'),
+                sortname: 'OIP',
+                viewrecords: true,
+                sortorder: "desc",
+                caption: "OIPs",
+                shrinkToFit: false
+            });
+
+            window.onload = function () {
+
+                Ext.require([
+                    'Ext.data.*',
+                    'Ext.tab.*'
+                ]);
+
+                //Ext.require('Ext.tab.*');
+
+                Ext.onReady(function () {
+
+                    var tabs = Ext.createWidget('tabpanel', {
+                        renderTo: 'tabs1',
+                        width: 550,
+                        activeTab: 0,
+                        defaults: {
+                            bodyPadding: 10
+                        },
+                        items: [{
+                            contentEl: 'datosgenerales',
+                            title: 'Datos Generales'
+                        }, {
+                            contentEl: 'cliente',
+                            title: 'Cliente'
+                        }, , {
+                            contentEl: 'oips',
+                            title: 'OIPs'
+                        }]
+                    });
+
+                });
+
+            }
+</script>
+
+
+
+</html>
